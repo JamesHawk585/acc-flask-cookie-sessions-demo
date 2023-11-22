@@ -10,6 +10,11 @@ CORS(app)
 @app.route('/')
 def index():
     return '<h1>Cookies and Sessions Demo</h1>'
+
+@app.route('/cookies', methods=['GET'])
+def cookies():
+    resp = make_response({"message": "Hit cookies route!"})
+    return resp
     
 
 # DELIVERABLES
