@@ -5,24 +5,29 @@ from flask_cors import CORS
 import datetime
 
 app = Flask(__name__)
+app.secret_key = 'SECRET_KEY'
 CORS(app)
+
+session["current_user_id"] = 1
 
 def expiration_date(delay):
     expire_date = datetime.datetime.now()
     expire_date = expire_date + datetime.timedelta(delay)
     return expire_date
-
-
-
+ 
 @app.route('/')
 def index():
     return '<h1>Cookies and Sessions Demo</h1>'
 
 @app.route('/cookies', methods=['GET'])
 def cookies():
-    resp = make_response({"message": "Hit cookies route!"})
-    resp.set_cookie("cookie name", "cookie_value")
-    resp.set_cookie("current_user", "JamesHawk585", expires=expiration_date(90))
+    # Inspect cookies using request.cookies 
+
+    resp = make_response({"message": "Hit cookies route!"}, 200)
+    if request.cookies["current_user"]:
+        resp.set_cookie("hello", "world")
+    else: 
+        resp.set_cookie("current_user", "JamesHawk585", expires=expiration_date(90), httponly=True)
     return resp
     
 

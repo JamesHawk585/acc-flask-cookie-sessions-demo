@@ -10,6 +10,15 @@ function App() {
       - Note the cookies that are marked as HTTP only
   */
  
+useEffect(() => {
+  fetch('/cookies')
+  .then(r => r.json())
+  .then(data => {
+    console.log(data)
+    console.log(document.cookie)
+  })
+}, []);
+
   return (
     <div className="App">
       httpOnly demo
