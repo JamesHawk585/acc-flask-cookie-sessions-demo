@@ -7,6 +7,13 @@ import datetime
 app = Flask(__name__)
 CORS(app)
 
+def expiration_date(delay):
+    expire_date = datetime.datetime.now()
+    expire_date = expire_date + datetime.timedelta(delay)
+    return expire_date
+
+
+
 @app.route('/')
 def index():
     return '<h1>Cookies and Sessions Demo</h1>'
@@ -15,7 +22,7 @@ def index():
 def cookies():
     resp = make_response({"message": "Hit cookies route!"})
     resp.set_cookie("cookie name", "cookie_value")
-    resp.set_cookie("current_user", "JamesHawk585")
+    resp.set_cookie("current_user", "JamesHawk585", expires=expiration_date(90))
     return resp
     
 
