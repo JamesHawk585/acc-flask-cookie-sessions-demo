@@ -14,6 +14,8 @@ def index():
 @app.route('/cookies', methods=['GET'])
 def cookies():
     resp = make_response({"message": "Hit cookies route!"})
+    resp.set_cookie("cookie name", "cookie_value")
+    resp.set_cookie("current_user", "JamesHawk585")
     return resp
     
 
